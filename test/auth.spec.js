@@ -131,6 +131,23 @@ describe('GET /v1/auth/whoami', () => {
   ));
 });
 
+// list cars
+describe('GET /v1/cars', () => {
+  it('should response with 200 status code', async () => (
+    request(server)
+      .get('/v1/cars')
+      .set('Accept', 'application/json')
+      .then((res) => {
+        expect(res.statusCode).toBe(200);
+        expect(res.body).toEqual(
+          expect.objectContaining({
+            cars: expect.any(Array),
+          }),
+        );
+      })
+  ));
+});
+
 // menghapus user dan close koneksi sequelize
 afterAll(async () => {
   await models.User.destroy({
