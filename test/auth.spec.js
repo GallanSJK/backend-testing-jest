@@ -131,7 +131,7 @@ describe('GET /v1/auth/whoami', () => {
   ));
 });
 
-//menghapus user dan close koneksi sequelize
+// menghapus user dan close koneksi sequelize
 afterAll(async () => {
   await models.User.destroy({
     where: {
