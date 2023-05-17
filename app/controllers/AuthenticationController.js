@@ -31,7 +31,9 @@ class AuthenticationController extends ApplicationController {
       const token = req.headers.authorization?.split('Bearer ')[1];
       const payload = this.decodeToken(token);
 
-      if (!!rolename && rolename != payload.role.name) { throw new InsufficientAccessError(payload?.role?.name); }
+      if (!!rolename && rolename !== payload.role.name) {
+        throw new InsufficientAccessError(payload?.role?.name);
+      }
 
       req.user = payload;
       next();
@@ -150,7 +152,9 @@ class AuthenticationController extends ApplicationController {
 
   encryptPassword = (password) => this.bcrypt.hashSync(password, 10);
 
-  verifyPassword = (password, encryptedPassword) => this.bcrypt.compareSync(password, encryptedPassword);
+  verifyPassword = (password, encryptedPassword) => (
+    this.bcrypt.compareSync(password, encryptedPassword)
+  );
 }
 
 module.exports = AuthenticationController;
